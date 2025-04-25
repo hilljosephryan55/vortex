@@ -1,0 +1,241 @@
+{% extends "base.html" %}
+
+  {% if msg == True %}
+    <h2 id="index_error">{{ msg }}</h2>
+  {% endif %}
+
+{% block content %}
+
+
+<div id = "top_div" style = "width:100%">
+
+</div>
+<br>
+
+<div id = "ercot_graph_table_container_div" style ="display: block; width:100%; float: left">
+
+    <div class="divTableRow" style="width:45%; float:left">
+            <div class="divTableCell">
+                <div class="grid-item"> <div id="T1"></div></div>
+            </div>
+            <h6>All data valid as of {{ date_accurate }} Central Time.</h6>
+    </div>
+
+    <div id = "temperature_table_div" style = "width:55%; float:left">
+        <h5>Temperature Table</h5>
+        <h7>Units: °F</h7>
+        <br>
+        {{ ercot_temperature_html|safe }}
+        <br>
+    </div>
+
+    <div id = "dewpoint_table_div" style = "width:55%; float:left">
+        <h5>Dewpoint Table</h5>
+        <h7>Units: °F</h7>
+        <br>
+        {{ ercot_dewpoint_html|safe }}
+        <br>
+        <h6><i>*Colors represent a binned departure of the actuals minus the forecast</i></h6>
+    <table class="anoms">
+	<thead>
+	<tr>
+		<th>Temperature<br>Anomaly (&deg;F)</th>
+		<th style = "background-color:#9154B0; color:#FFFFFF">T ≤ -12&deg;</th>
+		<th style = "background-color:#0000C8; color:#FFFFFF">-12&deg; > T ≤ -8&deg;</th>
+		<th style = "background-color:#4986FF; color:#FFFFFF">-8&deg; > T ≤ -5&deg;</th>
+		<th style = "background-color:#ADD8E6">-5&deg; > T ≤ -2&deg;</th>
+		<th style = "background-color:#FFFFFF">-2&deg; > T < 2&deg;</th>
+		<th style = "background-color:#FAE6BE">2&deg; ≥ T < 5&deg;</th>
+		<th style = "background-color:#FA9632; color:#FFFFFF">5&deg; ≥ T < 8&deg;</th>
+		<th style = "background-color:#E11919; color:#FFFFFF">8&deg; ≥ T < 12&deg;</th>
+		<th style = "background-color:#AB0C0C; color:#FFFFFF">T ≥ 12&deg;</th>
+	</tr>
+	</thead>
+</table>
+    </div>
+</div>
+
+<br>
+
+<script type="text/javascript">
+
+
+var dfw_temp_a_import = {{ dfw_temp_a_data }}
+
+var dfw_temp_a_finished = dfw_temp_a_import.map(function (item) {
+    return(item === 9999) ? null : item;
+})
+
+var aus_temp_a_import = {{ aus_temp_a_data }}
+
+var aus_temp_a_finished = aus_temp_a_import.map(function (item) {
+    return(item === 9999) ? null : item;
+})
+
+var sat_temp_a_import = {{ sat_temp_a_data }}
+
+var sat_temp_a_finished = sat_temp_a_import.map(function (item) {
+    return(item === 9999) ? null : item;
+})
+
+var iah_temp_a_import = {{ iah_temp_a_data }}
+
+var iah_temp_a_finished = iah_temp_a_import.map(function (item) {
+    return(item === 9999) ? null : item;
+})
+
+var bro_temp_a_import = {{ bro_temp_a_data }}
+
+var bro_temp_a_finished = bro_temp_a_import.map(function (item) {
+    return(item === 9999) ? null : item;
+})
+
+
+
+
+
+// Highcharts code for the degree day chart on the top right of the main page
+Highcharts.chart('T1', {
+
+    tooltip: {
+        crosshairs: true,
+        shared: true
+    },
+
+    chart: {
+        height:600,
+        width:800,
+    },
+
+    subtitle: {
+        text: 'Actuals from {{ date }}, WSI forecast values from 12z {{ yesterday }}',
+        align: 'center'
+    },
+
+    title: {
+        text: 'Actual vs WSI Forecasted Temperatures',
+        align: 'center'
+    },
+
+    yAxis: {
+        title: {
+            text: 'Temperature (°F)'
+        }
+    },
+
+    xAxis: {
+        categories: ['00','01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23'],
+        gridLineWidth: 1,
+        accessibility: {
+            Description: 'Local Time Hours'
+        }
+    },
+
+    legend: {
+        layout: 'horizontal',
+        align: 'center',
+        verticalAlign: 'bottom',
+        width: '85%',
+        x:45
+    },
+
+    plotOptions: {
+        series: {
+            lineWidth: 2
+        }
+    },
+
+    series: [{
+        name: 'DFW Forecast',
+        data: {{ dfw_temp_f_data }},
+        opacity: 0.5,
+        color: '#FF0000',
+        dashStyle: 'ShortDash',
+        marker:{symbol: 'square', radius: 0}
+    }, {
+        name: 'ATT Forecast',
+        data: {{ aus_temp_f_data }},
+        opacity: 0.5,
+        color: '#0000FF',
+        dashStyle: 'ShortDash',
+        marker:{symbol: 'circle', radius: 0}
+    }, {
+        name: 'SAT Forecast',
+        data: {{ sat_temp_f_data }},
+        opacity: 0.6,
+        color: '#CC33CC',
+        dashStyle: 'ShortDash',
+        marker:{symbol: 'diamond', radius: 0}
+    }, {
+        name: 'IAH Forecast',
+        data: {{ iah_temp_f_data }},
+        opacity: 0.6,
+        color: '#65a765',
+        dashStyle: 'ShortDash',
+        marker:{symbol: 'cross', radius: 0}
+    }, {
+        name: 'BRO Forecast',
+        data: {{ bro_temp_f_data }},
+        opacity: 0.6,
+        color: '#964B00',
+        dashStyle: 'ShortDash',
+        marker:{symbol: 'cross', radius: 0}
+    }, {
+        name: 'DFW Actual',
+        data: dfw_temp_a_finished,
+        color: '#FF0000',
+        marker:{symbol: 'square', radius: 0}
+    }, {
+        name: 'ATT Actual',
+        data: aus_temp_a_finished,
+        color: '#0000FF',
+        marker:{symbol: 'circle', radius: 0}
+    }, {
+        name: 'SAT Actual',
+        data: sat_temp_a_finished,
+        color: '#CC33CC',
+        marker:{symbol: 'diamond', radius: 0}
+    }, {
+        name: 'IAH Actual',
+        data: iah_temp_a_finished,
+        color: '#65a765',
+        marker:{symbol: 'cross', radius: 0}
+    }, {
+        name: 'BRO Actual',
+        data: bro_temp_a_finished,
+        color: '#964B00',
+        marker:{symbol: 'cross', radius: 0}
+    }],
+
+    exporting: {
+        buttons: {
+            contextButton: {
+                align: 'left',
+                x: 0,
+                y: 0,
+                verticalAlign: 'top'
+            }
+        }
+    },
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+
+</script>
+
+
+{% endblock content %}
