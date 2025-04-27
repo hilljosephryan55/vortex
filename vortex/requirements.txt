@@ -1,5 +1,13 @@
+#Core backend/lambda dependencies
 pandas
 numpy
 boto3
 s3fs
 requests
+
+#Core frontend dependencies
+fastapi
+uvicorn
+
+#Optional
+matplotlib
