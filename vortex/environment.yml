@@ -1,0 +1,14 @@
+name: vortex
+channels:
+  - defaults
+dependencies:
+  - python=3.11
+  - numpy
+  - uvicorn
+  - pandas
+  - fastapi
+  - s3fs
+  - boto3
+  - xarray
+  - matplotlib
+  - jinja2
