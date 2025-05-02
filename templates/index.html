@@ -66,9 +66,9 @@ var dfw_temp_a_finished = dfw_temp_a_import.map(function (item) {
     return(item === 9999) ? null : item;
 })
 
-var aus_temp_a_import = {{ aus_temp_a_data }}
+var att_temp_a_import = {{ att_temp_a_data }}
 
-var aus_temp_a_finished = aus_temp_a_import.map(function (item) {
+var att_temp_a_finished = att_temp_a_import.map(function (item) {
     return(item === 9999) ? null : item;
 })
 
@@ -154,7 +154,7 @@ Highcharts.chart('T1', {
         marker:{symbol: 'square', radius: 0}
     }, {
         name: 'ATT Forecast',
-        data: {{ aus_temp_f_data }},
+        data: {{ att_temp_f_data }},
         opacity: 0.5,
         color: '#0000FF',
         dashStyle: 'ShortDash',
@@ -187,7 +187,7 @@ Highcharts.chart('T1', {
         marker:{symbol: 'square', radius: 0}
     }, {
         name: 'ATT Actual',
-        data: aus_temp_a_finished,
+        data: att_temp_a_finished,
         color: '#0000FF',
         marker:{symbol: 'circle', radius: 0}
     }, {

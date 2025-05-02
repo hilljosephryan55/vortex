@@ -263,7 +263,7 @@ def lambda_handler(event, context):
 
 
         # Required City List (expecting comma-separated string)
-        cities_str = os.environ.get('CITIES_LIST', 'KDFW,KAUS,KSAT,KIAH,KBRO')
+        cities_str = os.environ.get('CITIES_LIST', 'KDFW,KATT,KSAT,KIAH,KBRO')
         cities = [city.strip() for city in cities_str.split(',') if city.strip()]
 
         # --- Basic Validation of Environment Variables ---

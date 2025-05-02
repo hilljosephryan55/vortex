@@ -57,7 +57,7 @@ def read_root(request: Request, msg=""):
     Generate temperature/dewpoint forecast tables and highcharts for actuals and forecast data.
     """
 
-    ercot_cities = ['KBRO', 'KDFW', 'KAUS', 'KSAT', 'KIAH']
+    ercot_cities = ['KBRO', 'KDFW', 'KATT', 'KSAT', 'KIAH']
 
 
     # What be tomorrow?
@@ -219,8 +219,8 @@ def read_root(request: Request, msg=""):
 
                'dfw_temp_f_data': list(ercot_tempdata.loc['DFW'].loc['Fcst']),
                'dfw_temp_a_data': list(ercot_tempdata.loc['DFW'].loc['Act']),
-               'aus_temp_f_data': list(ercot_tempdata.loc['AUS'].loc['Fcst']),
-               'aus_temp_a_data': list(ercot_tempdata.loc['AUS'].loc['Act']),
+               'att_temp_f_data': list(ercot_tempdata.loc['ATT'].loc['Fcst']),
+               'att_temp_a_data': list(ercot_tempdata.loc['ATT'].loc['Act']),
                'sat_temp_f_data': list(ercot_tempdata.loc['SAT'].loc['Fcst']),
                'sat_temp_a_data': list(ercot_tempdata.loc['SAT'].loc['Act']),
                'iah_temp_f_data': list(ercot_tempdata.loc['IAH'].loc['Fcst']),
@@ -229,8 +229,8 @@ def read_root(request: Request, msg=""):
                'bro_temp_a_data': list(ercot_tempdata.loc['BRO'].loc['Act']),
                'dfw_dp_f_data': list(ercot_dpdata.loc['DFW'].loc['Fcst']),
                'dfw_dp_a_data': list(ercot_dpdata.loc['DFW'].loc['Act']),
-               'aus_dp_f_data': list(ercot_dpdata.loc['AUS'].loc['Fcst']),
-               'aus_dp_a_data': list(ercot_dpdata.loc['AUS'].loc['Act']),
+               'att_dp_f_data': list(ercot_dpdata.loc['ATT'].loc['Fcst']),
+               'att_dp_a_data': list(ercot_dpdata.loc['ATT'].loc['Act']),
                'sat_dp_f_data': list(ercot_dpdata.loc['SAT'].loc['Fcst']),
                'sat_dp_a_data': list(ercot_dpdata.loc['SAT'].loc['Act']),
                'iah_dp_f_data': list(ercot_dpdata.loc['IAH'].loc['Fcst']),
