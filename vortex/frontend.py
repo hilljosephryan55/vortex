@@ -14,7 +14,7 @@ import os
 import s3fs
 import boto3
 
-
+# This is the frontend python script that runs api and pushes things to the html pages
 
 # Directory containing this script (frontend.py) -> C:\Users\hillj\repos\vortex\vortex
 SCRIPT_DIRECTORY = os.path.dirname(__file__)
